@@ -19,7 +19,7 @@ phases:
       # Set your AWS region variable
       - export AWS_REGION=us-east-1
       # Set Dome9 Token
-      - echo $D9TOKENT_PARAM >> cloudguard-config.json
+      - echo $D9TOKEN_PARAM >> cloudguard-config.json
       # Remove all unit tests to reduce the size of the package that will be ultimately uploaded to Lambda
       - rm -rf ./__tests__
       # Remove all dependencies not needed for the Lambda deployment package (the packages from devDependencies in package.json)
