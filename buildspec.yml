@@ -29,6 +29,7 @@ phases:
   build:
     commands:
       # Configure the CloudGuard Workload Proact security on the SAM template
+      - echo "$D9TOKEN"
       - cloudguard proact -t "$D9TOKEN" -m template.yml
     
       # Add the FSP Runtime security to the deployed function
