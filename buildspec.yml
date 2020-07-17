@@ -2,7 +2,7 @@ version: 0.2
 
 env:
   secrets-manager:
-    D9TOKEN: d9
+    D9TOKEN_PARAM: d9
 
 phases:
   install:
@@ -18,6 +18,8 @@ phases:
       - npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
       # Set your AWS region variable
       - export AWS_REGION=us-east-1
+      # Set Dome9 Token
+      export D9TOKEN=$D9TOKEN_PARAM
       # Remove all unit tests to reduce the size of the package that will be ultimately uploaded to Lambda
       - rm -rf ./__tests__
       # Remove all dependencies not needed for the Lambda deployment package (the packages from devDependencies in package.json)
