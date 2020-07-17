@@ -20,7 +20,7 @@ phases:
       - npm prune --production
       # Set the S3 bucket name variable
       - export S3_BUCKET=rolop-cloudguard-bucket
- build:
+  build:
     commands:
       # Configure the CloudGuard Workload Proact security on the SAM template
       - cloudguard proact -t $D9TOKEN -m template.yml
