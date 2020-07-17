@@ -9,7 +9,7 @@ phases:
   pre_build:
     commands:
       # Discover and run unit tests in the '__tests__' directory
-      - npm run test
+      #- npm run test
       # Install the CloudGuard Workload CLI Plugin
       - npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
       # Set your AWS region variable
