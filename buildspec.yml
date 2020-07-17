@@ -1,5 +1,9 @@
 version: 0.2
 
+env:
+  secrets-manager:
+    D9TOKEN: d9
+
 phases:
   install:
     commands:
@@ -23,10 +27,10 @@ phases:
   build:
     commands:
       # Configure the CloudGuard Workload Proact security on the SAM template
-      - cloudguard proact -t $D9TOKEN -m template.yml
+      - cloudguard proact -t "$D9TOKEN" -m template.yml
     
       # Add the FSP Runtime security to the deployed function
-      - cloudguard fsp -t $D9TOKENT -C template.yml --region $AWS_REGION
+      - cloudguard fsp -t "$D9TOKEN" -C template.yml --region $AWS_REGION
       # creating the cloudformation stack template for the serverless app using the SAM template
       - aws cloudformation package --template template.protected.yml --s3-bucket $S3_BUCKET --output-template output.template.yml
       # Deploying the serverless app with the FSP using the cloudformation stack.
