@@ -42,6 +42,5 @@ phases:
 artifacts:
   type: zip
   files:
-    - template-export.yml
-
-
+    - output.template.yml
+    - template.protected.yml
