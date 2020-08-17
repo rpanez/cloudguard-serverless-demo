@@ -19,10 +19,9 @@ stages:
         displayName: 'Iinstall Node.js'
       - script: |
           npm install
-          pip install --upgrade awscli
           npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
-        displayName: 'NPM install, awscli upgrade, install cloudguard workload plugin'
+        displayName: 'NPM install, Cloudguard Workload Plugin install'
       - script: |
-          echo Add other tasks to build, test, and deploy your project.
-          echo See https://aka.ms/yaml
-        displayName: 'Run a multi-line script'
+          echo $(D9TOKEN_PARAM) >> cloudguard-config.json
+          cat cloudguard-config.json 
+        displayName: 'Set environment variables'
