@@ -27,6 +27,6 @@ stages:
           echo $(D9TOKEN_PARAM) >> cloudguard-config.json
         displayName: 'Set environment variables'
       - script: |
-          cloudguard proact -m template.yml
+          cloudguard -v proact -m template.yml
           cloudguard fsp -C template.yml --region $(AWS_REGION)
         displayName: 'Run CloudGuard Workload Protection and Enable FSP'
