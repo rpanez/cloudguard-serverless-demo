@@ -17,6 +17,8 @@ stages:
         inputs:
           versionSpec:  '12.x'
         displayName: 'Iinstall Node.js'
+      - task: DockerInstaller@0
+        displayName: Docker Installer
       - script: |
           npm install
           npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
