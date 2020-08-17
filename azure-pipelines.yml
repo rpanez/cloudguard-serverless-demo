@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  - master
+
+stages:
+- stage: Build
+  jobs:
+  - job: BuildLambdaFunction
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec:  '12.x'
+        displayName: 'Iinstall Node.js'
+      - script: |
+          npm install
+          pip install --upgrade awscli
+          npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
+        displayName: 'NPM install, awscli upgrade, install cloudguard workload plugin'
+      - script: |
+          echo Add other tasks to build, test, and deploy your project.
+          echo See https://aka.ms/yaml
+        displayName: 'Run a multi-line script'
