@@ -24,7 +24,8 @@ stages:
           npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
         displayName: 'NPM install, Cloudguard Workload Plugin install'
       - script: |
-          echo $(D9TOKEN_PARAM) >> cloudguard-config.json
+          export D9TOKEN=$(D9TOKEN_PARAM)
+          echo {$D9TOKEN} >> cloudguard-config.json
         displayName: 'Set environment variables'
       - script: |
           cloudguard proact -m template.yml
