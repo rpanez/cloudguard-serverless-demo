@@ -23,6 +23,6 @@ stages:
         displayName: 'NPM install, Cloudguard Workload Plugin install'
       - script: |
           echo $(D9TOKEN_PARAM) >> cloudguard-config.json
-          echo $(D9TOKEN_PARAM)
+          cat cloudguard-config.json
           export AWS_REGION=us-east-1
         displayName: 'Set environment variables'
