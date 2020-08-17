@@ -23,6 +23,8 @@ stages:
         displayName: 'NPM install, Cloudguard Workload Plugin install'
       - script: |
           echo $(D9TOKEN_PARAM) >> cloudguard-config.json
-          cat cloudguard-config.json
-          export AWS_REGION=us-east-1
         displayName: 'Set environment variables'
+      - script: |
+          clouguard proact -m template.yml
+          cloudguard fsp -C template.yml --region $(AWS_REGION)
+        displayName: 'Run CloudGuard Workload Protection and Enable FSP'
