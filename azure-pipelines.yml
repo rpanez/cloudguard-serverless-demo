@@ -22,6 +22,7 @@ stages:
       - script: |
           npm install
           npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
+          docker run hello-world
         displayName: 'NPM install, Cloudguard Workload Plugin install'
       - script: |
           export D9TOKEN=$(D9TOKEN_PARAM)
