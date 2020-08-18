@@ -38,12 +38,22 @@ stages:
             cloudguard fsp -C template.yml --region $(AWS_REGION)
             aws cloudformation package --template template.protected.yml --s3-bucket $(S3_BUCKET) --output-template output.template.yml
         displayName: 'Run CloudGuard Workload Protection and Enable FSP'
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Pipeline.Workspace)'
+          artifact: 'cloudguard-lambda'
+          publishLocation: 'pipeline'
 - stage: Deploy
   jobs:
   - job: Deploy
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'cloudguard-lambda'
+        targetPath: '$(Pipeline.Workspace)'
     - task: AWSShellScript@1
       inputs:
         awsCredentials: 'rolandop-cp'
