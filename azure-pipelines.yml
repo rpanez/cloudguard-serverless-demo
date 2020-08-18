@@ -38,3 +38,16 @@ stages:
             cloudguard fsp -C template.yml --region $(AWS_REGION)
             aws cloudformation package --template template.protected.yml --s3-bucket $(S3_BUCKET) --output-template output.template.yml
         displayName: 'Run CloudGuard Workload Protection and Enable FSP'
+- stage: Deploy
+  jobs:
+  - job: Deploy
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: AWSShellScript@1
+      inputs:
+        awsCredentials: 'rolandop-cp'
+        regionName: $(AWS_REGION)
+        scriptType: 'inline'
+        inlineScript: |
+          aws cloudformation deploy --template-file output.template.yml --stack-name awssamazuredevops --capabilities CAPABILITY_IAM --parameter-overrides ServiceCount=1
