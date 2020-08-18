@@ -22,6 +22,7 @@ stages:
       - script: |
           npm install
           npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
+          rm -rf ./__tests__
           npm prune --production
         displayName: 'NPM install, Cloudguard Workload Plugin install'
       - script: |
@@ -38,6 +39,13 @@ stages:
             cloudguard fsp -C template.yml --region $(AWS_REGION)
             aws cloudformation package --template template.protected.yml --s3-bucket $(S3_BUCKET) --output-template output.template.yml
         displayName: 'Run CloudGuard Workload Protection and Enable FSP'
+      - task: ArchiveFiles@2
+        inputs:
+          rootFolderOrFile: '$(Build.SourcesDirectory)'
+          includeRootFolder: true
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
       - task: S3Upload@1
         inputs:
           awsCredentials: 'rolandop-cp'
