@@ -53,9 +53,10 @@ stages:
 - stage: Deploy
   dependsOn: Build
   jobs:
-  - deployment: CloudGuardLambda
+  - deployment: CloudGuardLambdaDev
     pool:
       vmImage: 'ubuntu-latest'
+    environment: 'Development'
     strategy:
       runOnce:
         deploy:
