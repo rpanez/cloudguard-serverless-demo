@@ -28,7 +28,12 @@ stages:
           export D9TOKEN=$(D9TOKEN_PARAM)
           echo {\"cloudguardAccessToken\":\"$D9TOKEN\"} >> cloudguard-config.json
         displayName: 'Set environment variables'
-      - script: |
-          cloudguard proact -m template.yml
-          cloudguard fsp -C template.yml --region $(AWS_REGION)
+      - task: AWSShellScript@1
+        inputs:
+          awsCredentials: 'rolandop-cp'
+          regionName: $(AWS_REGION)
+          scriptType: 'inline'
+          inlineScript: |
+            cloudguard proact -m template.yml
+            cloudguard fsp -C template.yml --region $(AWS_REGION)
         displayName: 'Run CloudGuard Workload Protection and Enable FSP'
