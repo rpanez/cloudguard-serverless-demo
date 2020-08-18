@@ -22,18 +22,19 @@ stages:
       - script: |
           npm install
           npm install -g https://artifactory.app.protego.io/cloudguard-serverless-plugin.tgz
-          docker run hello-world
+          npm prune --production
         displayName: 'NPM install, Cloudguard Workload Plugin install'
       - script: |
           export D9TOKEN=$(D9TOKEN_PARAM)
           echo {\"cloudguardAccessToken\":\"$D9TOKEN\"} >> cloudguard-config.json
-        displayName: 'Set environment variables'
+        displayName: 'Setup Dome9 Credentials'
       - task: AWSShellScript@1
         inputs:
           awsCredentials: 'rolandop-cp'
-          regionName: us-east-1
+          regionName: $(AWS_REGION)
           scriptType: 'inline'
           inlineScript: |
             cloudguard proact -m template.yml
             cloudguard fsp -C template.yml --region $(AWS_REGION)
+            aws cloudformation package --template template.protected.yml --s3-bucket $(S3_BUCKET) --output-template output.template.yml
         displayName: 'Run CloudGuard Workload Protection and Enable FSP'
