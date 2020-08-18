@@ -52,7 +52,7 @@ stages:
           regionName: 'us-east-1'
           bucketName: 'rolo-cloudguard-devops-output'
           sourceFolder: '$(Build.ArtifactStagingDirectory)'
-          globExpressions: '**'
+          globExpressions: '*.zip'
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: '$(Pipeline.Workspace)'
