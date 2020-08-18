@@ -51,6 +51,7 @@ stages:
           artifact: 'cloudguard-lambda'
           publishLocation: 'pipeline'
 - stage: Deploy
+  dependsOn: Build
   jobs:
   - deployment: CloudGuard-Lambda
     pool:
