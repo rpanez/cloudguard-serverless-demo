@@ -34,7 +34,7 @@ stages:
           inlineScript: |
             cloudguard proact -m template.yml
             cloudguard fsp -C template.yml --region $(AWS_REGION)
-            aws cloudformation package --template template.protected.yml --s3-bucket $(S3_BUCKET) --output-template output.template.yml
+            aws cloudformation package --template template.protected.yml --s3-bucket $(S3_BUCKET_BUILD) --output-template output.template.yml
         displayName: 'Run CloudGuard Workload Protection and Enable FSP'
       - task: ArchiveFiles@2
         inputs:
