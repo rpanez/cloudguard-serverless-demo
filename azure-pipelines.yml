@@ -22,8 +22,14 @@ stages:
           rm -rf ./__tests__
           npm prune --production
         displayName: 'NPM install, Cloudguard Workload Plugin install'
+      - task: AzureKeyVault@1
+        inputs:
+          azureSubscription: 'Visual Studio Professional(1)(0410d51b-d8ac-40ba-84c1-f74a3c48301b)'
+          KeyVaultName: 'RoloVault'
+          SecretsFilter: 'cloudguardAccessToken'
+          RunAsPreJob: false
       - script: |
-          export D9TOKEN=$(D9TOKEN_PARAM)
+          export D9TOKEN=$(cloudguardAccessToken)
           echo {\"cloudguardAccessToken\":\"$D9TOKEN\"} >> cloudguard-config.json
         displayName: 'Setup Dome9 Credentials'
       - task: AWSShellScript@1
